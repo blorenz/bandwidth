@@ -1,0 +1,17 @@
+{
+    "status" : "success",
+    "locations" : [
+       {
+           "id" : "1",
+           "display-name" : "Columbus, OH"
+       },
+       {
+           "id" : "2",
+           "display-name" : "Cleveland, OH"
+       },
+       {
+           "id" : "3",
+           "display-name" : "Cincinnati, OH"
+       }
+   ]
+}

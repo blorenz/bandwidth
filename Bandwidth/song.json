@@ -1,0 +1,11 @@
+{
+    "status" : "success",
+    "artist-id" : "3902",
+    "artist-name" : "Tool",
+    "song-id" : "489020",
+    "song-name" : "Ticks & Leeches",
+    "song-url" : "http://bandwidth.com/tool_ticks_and_leeches.mp3",
+    "album-name" : "Lateralus",
+    "artwork-url" : "http://bandwidth.com/tool_lateralus.png",
+    "rating" : "10.0"
+}

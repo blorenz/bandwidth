@@ -1,0 +1,20 @@
+{
+    "status" : "success",
+    "genres" : [
+        {
+            "id" : "1",
+            "display-name" : "Metal"
+            "populated" : "true"
+        },
+        {
+            "id" : "2",
+            "display-name" : "Hip Hop"
+            "populated" : "true"
+        },
+        {
+            "id" : "3",
+            "display-name" : "Country"
+            "populated" : "false"
+        }
+    ]
+}
