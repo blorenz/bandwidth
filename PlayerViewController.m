@@ -25,10 +25,13 @@
 @synthesize buttonThumbsUp;
 @synthesize buttonNextTrack;
 @synthesize buttonThumbsDown;
-@synthesize imagePlayPause;
+@synthesize imagePlay, imagePause;
+@synthesize imageCarrot;
 @synthesize isPlaying;
 @synthesize slider;
 @synthesize crowdImage;
+@synthesize buttonCarrot;
+@synthesize buttonLastTrack;
 
 -(IBAction)sliderChanged:(id)sender
 {
@@ -47,7 +50,7 @@
 
 -(IBAction)buttonPlayPauseTouched:(id)sender 
 { 
-    NSLog(@"PlayPauseTouched %@.", isPlaying ? @"music is playing" : @"music is paused.");
+    // /*DEBUG*/ NSLog(@"PlayPauseTouched %@.", isPlaying ? @"music is playing" : @"music is paused.");
 	if (!isPlaying)
 	{	
         [SVProgressHUD showWithStatus:@"Buffering"];
@@ -57,7 +60,6 @@
         //[imagePlayPause setImage:[UIImage imageNamed:@"buttonPause.png"]];
         NSLog(@"starting streamer.");
 		[streamer start];
-        
 	}
 	else
 	{
@@ -159,14 +161,16 @@
 	{
 		//[self setButtonImage:[UIImage imageNamed:@"stopbutton.png"]];
         [SVProgressHUD dismissWithSuccess:@"Playing"];
-        [imagePlayPause setImage:[UIImage imageNamed:@"buttonPause"]];
+        imagePause.hidden = FALSE;
+        imagePlay.hidden = TRUE;
         isPlaying = TRUE;
 	}
 	else if ([streamer isIdle])
 	{
 		[self destroyStreamer];
 		//[self setButtonImage:[UIImage imageNamed:@"playbutton.png"]];
-        [imagePlayPause setImage:[UIImage imageNamed:@"buttonPlay"]];
+        imagePause.hidden = TRUE;
+        imagePlay.hidden = FALSE;
         isPlaying = FALSE;
 	}
 }
@@ -208,6 +212,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    imagePause.hidden = TRUE;
 }
 
 - (void)viewDidUnload

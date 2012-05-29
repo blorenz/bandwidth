@@ -14,10 +14,10 @@
 
 @interface CNClient : NSObject
 
-@property (nonatomic, retain) NSString *deviceIdentifier;
-@property (nonatomic, retain) CNLocation *currentLocation;
-@property (nonatomic, retain) CNGenre *currentGenre;
-
-+(CNClient *)instance;
++(NSString *)deviceIdentifier;
++(CNLocation *)currentLocation;
++(CNGenre *)currentGenre;
++(void)setCurrentGenre:(CNGenre *)genre;
++(void)setCurrentLocation:(CNLocation *)location;
 
 @end

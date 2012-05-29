@@ -12,14 +12,26 @@
 @class CNGenre;
 @class CNTrackListing;
 
+typedef void (^CNRequestSuccessful)(NSDictionary *response);
+typedef void (^CNRequestFailed)(NSString *message, NSString *code);
+
+typedef enum {
+    CNRequestTypeLocations,
+    CNRequestTypeGenres,
+    CNRequestTypeSong,
+    CNRequestTypeFeedback
+} CNRequestType;
+
 @interface CNAPI : NSObject
 
 @property (nonatomic, retain) NSString *serverAddress;
 @property (nonatomic, assign) BOOL useSSL;
 
--(NSArray *)getLocations;
--(NSArray *)getGenresForLocation:(CNLocation *)location;
--(CNTrackListing *)getNextTrackListingForLocation:(CNLocation *)location withGenre:(CNGenre *)genre;
++(CNAPI *) instance;
 
++(void)submitRequest:(CNRequestType)requestType 
+            withData:(NSDictionary *)postVariables 
+           onSuccess:(CNRequestSuccessful)success 
+           onFailure:(CNRequestFailed)failed;
 
 @end

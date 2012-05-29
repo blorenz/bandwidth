@@ -9,13 +9,53 @@
 #import "CNClient.h"
 
 #import "UIDevice+IdentifierAddition.h"
+#import "ASIFormDataRequest.h"
 
 #import "CNLocation.h"
 #import "CNGenre.h"
 
+@interface CNClient()
+
+@property (nonatomic, retain) NSString *deviceIdentifier;
+@property (nonatomic, retain) CNLocation *currentLocation;
+@property (nonatomic, retain) CNGenre *currentGenre;
+
++(CNClient *)instance;
+
+@end
+
 @implementation CNClient
 
 @synthesize currentGenre, currentLocation, deviceIdentifier;
+
+#pragma mark - Public Methods
+
++(NSString *)deviceIdentifier
+{
+    return [[CNClient instance] deviceIdentifier];
+}
+
++(CNLocation *)currentLocation
+{
+    return [[CNClient instance] currentLocation];    
+}
+
++(CNGenre *)currentGenre
+{
+    return [[CNClient instance] currentGenre];
+}
+
++(void)setCurrentGenre:(CNGenre *)genre
+{
+    [[CNClient instance] setCurrentGenre:genre];
+}
+
++(void)setCurrentLocation:(CNLocation *)location
+{
+    [[CNClient instance] setCurrentLocation:location];    
+}
+
+#pragma mark - Private Methods
 
 +(CNClient *)instance  
 {
@@ -28,10 +68,7 @@
             instance.deviceIdentifier = [[UIDevice currentDevice] uniqueGlobalDeviceIdentifier];
             
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            
             instance.currentLocation = [defaults objectForKey:@"location"];
-            
-            
             instance.currentGenre = [defaults objectForKey:@"genre"];
 		}
 	}

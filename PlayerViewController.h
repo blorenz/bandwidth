@@ -18,12 +18,17 @@
 @property (nonatomic, retain) IBOutlet UIButton *buttonNextTrack;
 @property (nonatomic, retain) IBOutlet UIButton *buttonThumbsUp;
 @property (nonatomic, retain) IBOutlet UIButton *buttonThumbsDown;
+@property (nonatomic, retain) IBOutlet UIButton *buttonLastTrack;
+@property (nonatomic, retain) IBOutlet UIButton *buttonCarrot;
 
-@property (nonatomic, retain) IBOutlet UIImageView *imagePlayPause;
 @property (nonatomic, assign) BOOL isPlaying;
 
 @property (nonatomic, retain) IBOutlet UISlider *slider;
 @property (nonatomic, retain) IBOutlet UIImageView *crowdImage;
+
+@property (nonatomic, retain) IBOutlet UIImageView *imagePlay;
+@property (nonatomic, retain) IBOutlet UIImageView *imagePause;
+@property (nonatomic, retain) IBOutlet UIImageView *imageCarrot;
 
 -(IBAction)sliderChanged:(id)sender;
 
