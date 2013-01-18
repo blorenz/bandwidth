@@ -174,9 +174,10 @@
 -(IBAction)buttonThumbsUpTouched:(id)sender 
 { 
     [SVProgressHUD showSuccessWithStatus:@"Rock On"];
-    NSDictionary * dict = nil;
+    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                           @"1", @"thumbs", nil];
     
-    // TODO:  Call to the API here
+
     [CNAPI submitRequest:CNRequestTypeFeedback withData:dict onSuccess:^(NSDictionary *response) {
        // <#code#>
         
@@ -188,8 +189,19 @@
 }
 
 -(IBAction)buttonThumbsDownTouched:(id)sender 
-{ 
-    [[CNJukebox instance] nextTrackListing];
+{
+    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                           @"-1", @"thumbs", nil];
+    
+      [CNAPI submitRequest:CNRequestTypeFeedback withData:dict onSuccess:^(NSDictionary *response) {
+        [[CNJukebox instance] nextTrackListing];
+        
+    } onFailure:^(NSString *message, NSString *code) {
+        //  <#code#>
+        
+    }];
+    
+    
 }
 
 -(IBAction)buttonCarrotTouched:(id)sender

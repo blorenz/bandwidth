@@ -79,6 +79,7 @@
             serviceLocation = [serviceLocation stringByAppendingString:@"/api/v1/feedback/"];
             [request addPostValue:[[CNClient currentLocation] locationId] forKey:@"location"];
             [request addPostValue:[[CNClient currentGenre] identifier] forKey:@"genre"];
+            [request addPostValue:[[[CNClient currentTrack] song] identifier ] forKey:@"song-id"];
             break;
         case CNRequestTypeSong:
             serviceLocation = [serviceLocation stringByAppendingString:@"/api/v1/song/"];
