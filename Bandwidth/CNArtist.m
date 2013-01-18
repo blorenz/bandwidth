@@ -10,4 +10,27 @@
 
 @implementation CNArtist
 
+@synthesize name;
+@synthesize identifier;
+
+-(id)initWithDictionary:(NSDictionary *)dictionary
+{
+    self = [super init];
+    if(self)
+    {
+        if([dictionary objectForKey:@"artist-id"])
+        {
+            self.identifier = [NSString stringWithFormat:@"%@", [dictionary objectForKey:@"artist-id"]];
+        }
+        
+        if([dictionary objectForKey:@"artist-name"])
+        {
+            self.name = [dictionary objectForKey:@"artist-name"];
+        }
+        
+    }
+    return self;
+}
+    
+
 @end

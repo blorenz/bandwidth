@@ -14,4 +14,15 @@
 
 @synthesize artist, song;
 
+-(id)initWithDictionary:(NSDictionary *)dictionary
+{
+    self = [super init];
+    if(self)
+    {
+        self.artist = [[CNArtist alloc] initWithDictionary:dictionary];
+        self.song = [[CNSong alloc] initWithDictionary:dictionary];       
+    }
+    return self;   
+}
+
 @end

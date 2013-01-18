@@ -10,4 +10,7 @@
 
 @implementation CNLocation
 
+@synthesize locationId;
+@synthesize locationDisplayName;
+
 @end

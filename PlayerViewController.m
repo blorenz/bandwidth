@@ -7,16 +7,19 @@
 //
 
 #import "PlayerViewController.h"
-#import "AudioStreamer.h"
-#import <MediaPlayer/MediaPlayer.h>
-#import <CFNetwork/CFNetwork.h>
 #import "SVProgressHUD.h"
+#import <Twitter/Twitter.h>
+#import <QuartzCore/QuartzCore.h>
+
+#import "CNAPI.h"
 
 @interface PlayerViewController ()
-{
- 	NSTimer *progressUpdateTimer;
-    AudioStreamer *streamer;
-}
+
+@property (nonatomic, retain) NSString *lastAlbumArtURL;
+
+- (void)loadAlbumArt;
+
+
 @end
 
 @implementation PlayerViewController
@@ -27,16 +30,21 @@
 @synthesize buttonThumbsDown;
 @synthesize imagePlay, imagePause;
 @synthesize imageCarrot;
-@synthesize isPlaying;
 @synthesize slider;
 @synthesize crowdImage;
 @synthesize buttonCarrot;
 @synthesize buttonLastTrack;
+@synthesize imageAlbumArt;
+@synthesize labelCountLeft;
+@synthesize labelCountRight;
+@synthesize labelStationName;
+@synthesize viewStatus;
+@synthesize buttonShowStatus;
+@synthesize progressBar;
 
--(IBAction)sliderChanged:(id)sender
-{
-    [crowdImage setImage:[UIImage imageNamed:[NSString stringWithFormat:@"crowd_%i.png", (int)slider.value]]];
-}
+@synthesize isPlaying;
+
+@synthesize lastAlbumArtURL;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,169 +52,192 @@
     if (self) {
         // Custom initialization
         isPlaying = FALSE;
+        [[CNJukebox instance] setDelegate:self];
+        self.lastAlbumArtURL = @"";
     }
     return self;
 }
 
+#pragma mark - CNJukebox Delegate Methods
+
+-(void)jukeboxPlayBackStateChanged:(CNJukeboxStatus)status
+{
+    switch(status)
+    {
+        case CNJukeboxStatusIdle:
+            imagePause.hidden = TRUE;
+            imagePlay.hidden = FALSE;
+            //[SVProgressHUD dismiss];
+            [[CNJukebox instance] nextTrackListing];
+            break;
+            
+        case CNJukeboxStatusPlaying:
+            imagePause.hidden = FALSE;
+            imagePlay.hidden = TRUE;
+            [[CNAPI instance] setHasNowPlaying:TRUE];            
+            [self loadAlbumArt];
+            
+            break;
+            
+        case CNJukeboxStatusWaiting:
+            //[SVProgressHUD showWithStatus:@"Buffering" maskType:SVProgressHUDMaskTypeBlack];
+            break;
+            
+        case CNJukeboxStatusPaused:
+            //[SVProgressHUD dismiss];
+            imagePause.hidden = TRUE;
+            imagePlay.hidden = FALSE;
+            break;
+            
+        default:
+            break;
+    }
+}
+
+-(void)jukeboxProgressUpdated:(double)progress totalDuration:(double)duration
+{
+    //NSLog(@"Progress Update %f of %f", progress, duration);
+    if (duration > 0)
+    {
+        [self.progressBar setProgress:(progress / duration)];
+        int minPlayed = floor(progress / 60.0f);
+        int secPlayed = (int)progress % 60;
+        labelCountLeft.text = [NSString stringWithFormat:@"%02i:%02i", minPlayed, secPlayed];
+        
+        int min = duration - progress;
+        int minLeft = floor(min / 60.0f);
+        int secLeft = (int)min % 60;
+        labelCountRight.text = [NSString stringWithFormat:@"-%02i:%02i", minLeft, secLeft];
+    
+    }
+}
+
+-(void)jukeboxResumedFromBackground
+{
+    [self loadAlbumArt];
+}
+
+
+- (void)loadAlbumArt
+{
+    //NSLog(@"Serveraddress: %@", [[CNAPI instance] serverAddress]);
+    NSString *albumUrlString = [NSString stringWithFormat:@"%@", [[[CNClient currentTrack] song] artworkUrl]];
+    
+    //NSLog(@"Loading Album artwork from: %@", albumUrlString);
+    
+    if([self.lastAlbumArtURL isEqualToString:albumUrlString])
+    {
+        //NSLog(@"Not loading ALbum art.");
+        return;
+    }
+    self.lastAlbumArtURL = albumUrlString;
+    
+    NSURL * imageURL = [NSURL URLWithString:albumUrlString];
+    NSData * imageData = [NSData dataWithContentsOfURL:imageURL];
+    UIImage * image = [UIImage imageWithData:imageData];
+    [self.imageAlbumArt setImage:image];
+    
+    [self.imageAlbumArt.layer setBorderColor: [[UIColor colorWithHue:0.0f saturation:0.0f brightness:0.0f alpha:0.75] CGColor]];
+    [self.imageAlbumArt.layer setBorderWidth: 1.0];
+    
+    [crowdImage setImage:[UIImage imageNamed:[[[CNClient currentTrack] song] crowdImage]]];
+    
+    
+}
+
+#pragma mark - Interface Builder Actions
+
 -(IBAction)buttonPlayPauseTouched:(id)sender 
 { 
     // /*DEBUG*/ NSLog(@"PlayPauseTouched %@.", isPlaying ? @"music is playing" : @"music is paused.");
-	if (!isPlaying)
+	if ([CNJukebox instance].status == CNJukeboxStatusPlaying)
 	{	
-        [SVProgressHUD showWithStatus:@"Buffering"];
-        NSLog(@"creating streamer.");
-		[self createStreamer];
-        NSLog(@"setting image.");
-        //[imagePlayPause setImage:[UIImage imageNamed:@"buttonPause.png"]];
-        NSLog(@"starting streamer.");
-		[streamer start];
-	}
-	else
-	{
-        //[imagePlayPause setImage:[UIImage imageNamed:@"buttonPlay.png"]];
-		[streamer stop];
+        [[CNJukebox instance] pauseStreamer];
+    }else{
+        [[CNJukebox instance] createStreamerWithTrack:[CNClient currentTrack]];
 	}
 }
 
 -(IBAction)buttonNextTrackTouched:(id)sender 
 { 
+    [[CNJukebox instance] nextTrackListing];
+}
 
+-(IBAction)buttonPreviousTrackTouched:(id)sender
+{
+    if([CNJukebox instance].status == CNJukeboxStatusPaused || [CNJukebox instance].status == CNJukeboxStatusPlaying)
+    {
+        [[CNJukebox instance] previousTrack];
+    }
 }
 
 -(IBAction)buttonThumbsUpTouched:(id)sender 
 { 
-
+    [SVProgressHUD showSuccessWithStatus:@"Rock On"];
+    NSDictionary * dict = nil;
+    
+    // TODO:  Call to the API here
+    [CNAPI submitRequest:CNRequestTypeFeedback withData:dict onSuccess:^(NSDictionary *response) {
+       // <#code#>
+        
+    } onFailure:^(NSString *message, NSString *code) {
+      //  <#code#>
+        
+    }];
+    
 }
 
 -(IBAction)buttonThumbsDownTouched:(id)sender 
 { 
-
+    [[CNJukebox instance] nextTrackListing];
 }
 
-
-//
-// destroyStreamer
-//
-// Removes the streamer, the UI update timer and the change notification
-//
-- (void)destroyStreamer
+-(IBAction)buttonCarrotTouched:(id)sender
 {
-	if (streamer)
-	{
-		[[NSNotificationCenter defaultCenter]
-         removeObserver:self
-         name:ASStatusChangedNotification
-         object:streamer];
-		//[progressUpdateTimer invalidate];
-		//progressUpdateTimer = nil;
-		
-		[streamer stop];
-		streamer = nil;
-	}
+        UIActionSheet *popupQuery = [[UIActionSheet alloc] initWithTitle:@"Tell Your Friends" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share with Facebook", @"Share with Twitter", nil];
+        popupQuery.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+        [popupQuery showInView:self.view];
 }
 
-//
-// createStreamer
-//
-// Creates or recreates the AudioStreamer object.
-//
-- (void)createStreamer
+-(IBAction)buttonStatusTouched:(id)sender
 {
-    NSLog(@"Create streamer");
-	if (streamer)
-	{
-		return;
-	}
-    
-	[self destroyStreamer];
-	
-	NSString *escapedValue = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(
-                                                        nil,
-                                                        (CFStringRef)@"http://dl.dropbox.com/u/23944715/butcher.mp3",
-                                                        NULL,
-                                                        NULL,
-                                                        kCFStringEncodingUTF8);
-    
-	NSURL *url = [NSURL URLWithString:escapedValue];
-	streamer = [[AudioStreamer alloc] initWithURL:url];
-	
-	progressUpdateTimer =
-    [NSTimer
-     scheduledTimerWithTimeInterval:0.1
-     target:self
-     selector:@selector(updateProgress:)
-     userInfo:nil
-     repeats:YES];
-    
-	[[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(playbackStateChanged:)
-     name:ASStatusChangedNotification
-     object:streamer];
+    if(viewStatus.isHidden)
+    {
+        viewStatus.alpha = 0.0f;
+        [UIView animateWithDuration:0.2f animations:^{
+            viewStatus.hidden = FALSE;
+            viewStatus.alpha = 1.0f;
+        }];
+    }else{
+        [UIView animateWithDuration:0.2f animations:^{
+            viewStatus.alpha = 0.0f;
+        } completion:^(BOOL finished) {
+            if(finished)
+            {
+                viewStatus.hidden = TRUE;
+            }
+        }];
+    }
 }
 
-//
-// playbackStateChanged:
-//
-// Invoked when the AudioStreamer
-// reports that its playback status has changed.
-//
-- (void)playbackStateChanged:(NSNotification *)aNotification
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex 
 {
-	if ([streamer isWaiting])
-	{
-		//[self setButtonImage:[UIImage imageNamed:@"loadingbutton.png"]];
-	}
-	else if ([streamer isPlaying])
-	{
-		//[self setButtonImage:[UIImage imageNamed:@"stopbutton.png"]];
-        [SVProgressHUD dismissWithSuccess:@"Playing"];
-        imagePause.hidden = FALSE;
-        imagePlay.hidden = TRUE;
-        isPlaying = TRUE;
-	}
-	else if ([streamer isIdle])
-	{
-		[self destroyStreamer];
-		//[self setButtonImage:[UIImage imageNamed:@"playbutton.png"]];
-        imagePause.hidden = TRUE;
-        imagePlay.hidden = FALSE;
-        isPlaying = FALSE;
-	}
+    if(buttonIndex == 0)
+    {
+        NSString *status = [[NSString stringWithFormat:@"fb://publish/?text=I'm listening to '%@' by %@ on cannon.fm - http://cannon.fm", [[[CNClient currentTrack] song] name], [[[CNClient currentTrack] artist] name]] stringByAddingPercentEscapesUsingEncoding:
+                            NSASCIIStringEncoding];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:status]];
+    }
+    if(buttonIndex == 1)
+    {
+        TWTweetComposeViewController *controller = [[TWTweetComposeViewController alloc] init];
+        NSString *tweet = [NSString stringWithFormat:@"I'm listening to '%@' by %@ on @cannondotfm", [[[CNClient currentTrack] song] name], [[[CNClient currentTrack] artist] name]];
+        [controller setInitialText:tweet];
+        [self presentModalViewController:controller animated:YES];
+    }
 }
 
-//
-// updateProgress:
-//
-// Invoked when the AudioStreamer
-// reports that its playback progress has changed.
-//
-- (void)updateProgress:(NSTimer *)updatedTimer
-{
-	if (streamer.bitRate != 0.0)
-	{
-		//double progress = streamer.progress;
-		double duration = streamer.duration;
-		
-		if (duration > 0)
-		{
-			//[positionLabel setText:
-            // [NSString stringWithFormat:@"Time Played: %.1f/%.1f seconds",
-            //  progress,
-            //  duration]];
-			//[progressSlider setEnabled:YES];
-			//[progressSlider setValue:100 * progress / duration];
-		}
-		else
-		{
-			//[progressSlider setEnabled:NO];
-		}
-	}
-	else
-	{
-		//positionLabel.text = @"Time Played:";
-	}
-}
+#pragma mark - View Lifecycle
 
 - (void)viewDidLoad
 {
@@ -220,6 +251,7 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

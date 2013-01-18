@@ -8,15 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@class PlayerViewController;
-@class LocationSelectionViewController;
+@class UINavigationControlleriPhone;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (nonatomic, retain) PlayerViewController *playView;
-@property (nonatomic, retain) LocationSelectionViewController *locationView;
-
--(void)showPlayer;
+@property (nonatomic, retain) UINavigationControlleriPhone *navigationController;
 
 @end

@@ -10,4 +10,7 @@
 
 @interface CNLocation : NSObject
 
+@property (nonatomic, retain) NSString *locationId;
+@property (nonatomic, retain) NSString *locationDisplayName;
+
 @end

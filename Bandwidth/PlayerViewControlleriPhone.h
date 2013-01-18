@@ -8,6 +8,15 @@
 
 #import "PlayerViewController.h"
 
-@interface PlayerViewControlleriPhone : PlayerViewController
+@class MPVolumeView;
+
+@interface PlayerViewControlleriPhone : PlayerViewController 
+
+@property (nonatomic, retain) UILabel *titleLabel;
+@property (nonatomic, retain) UILabel *artistLabel;
+@property (nonatomic, retain) UILabel *albumLabel;
+@property (nonatomic, retain) UIView *titleView;
+@property (nonatomic, retain) MPVolumeView *volumeView ;
+@property (nonatomic, assign) BOOL artistInfo;
 
 @end

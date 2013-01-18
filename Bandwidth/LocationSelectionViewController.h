@@ -1,15 +1,23 @@
 //
 //  LocationSelectionViewController.h
-//  Bandwidth
+//  cannon.fm
 //
-//  Created by Bergman, Adam on 5/20/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Adam Bergman on 5/29/12.
+//  Copyright (c) 2012 Blue Diesel. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface LocationSelectionViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@class CNLocation;
 
-@property (nonatomic, retain) UITableView *tableView;
+typedef void (^LocationSelected)(CNLocation *selectedLocation);
+
+@interface LocationSelectionViewController : UITableViewController
+
+@property (nonatomic, retain) NSArray *locations;
+@property (nonatomic, retain) CNLocation *selectedLocation;
+@property (nonatomic, copy) LocationSelected finishedBlock;
+
+-(id)initWithLocations:(NSArray *)locationsArray;
 
 @end

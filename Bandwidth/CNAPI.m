@@ -7,29 +7,25 @@
 //
 
 #import "CNAPI.h"
-#import "CNClient.h"
-#import "CNTrackListing.h"
-#import "CNLocation.h"
-#import "CNGenre.h"
 
 #import "JSONKit.h"
 #import "ASIFormDataRequest.h"
 
 @interface CNAPI()
 
-+(NSString *)generateServerURL;
-
 @end
 
 @implementation CNAPI
 
-@synthesize serverAddress, useSSL;
+@synthesize serverAddress, useSSL, hasNowPlaying;
+
+
+
 
 -(id)init
 {
     if((self = [super init]))
     {
-        
     }
     return self;
 }
@@ -43,20 +39,14 @@
         {
 			instance = [[CNAPI alloc] init];
             [instance setUseSSL:FALSE];
-            [instance setServerAddress:@"adambergman.com/cannon.fm"];
+            [instance setHasNowPlaying:FALSE];
+            
+            endpoints = [NSDictionary dictionaryWithObjectsAndKeys:
+                         @"value1", @"key1", @"value2", @"key2", nil];
 		}
 	}
 	return instance;
 }
-
-+(NSString *)generateServerURL
-{
-    NSString *url = @"http://";
-    if([[CNAPI instance] useSSL]){ url = @"https://"; }
-    url = [url stringByAppendingFormat:@"%@", [[CNAPI instance] serverAddress]];
-    return url;
-}
-
 
 +(void)submitRequest:(CNRequestType)requestType 
             withData:(NSDictionary *)postVariables 
@@ -64,7 +54,7 @@
            onFailure:(CNRequestFailed)failed
 {
     
-    ASIFormDataRequest *_request = [[ASIFormDataRequest alloc] init];
+    ASIFormDataRequest *_request = [[ASIFormDataRequest alloc] initWithURL:[NSURL URLWithString:@"http://google.com"]];
     __weak ASIFormDataRequest *request = _request;
     
     
@@ -73,25 +63,32 @@
     [ASIFormDataRequest setDefaultUserAgentString:userAgentString];
     
     
-    NSString *serviceLocation = [[CNAPI generateServerURL] stringByAppendingFormat:@"/api_v1/%@", ""];
+    //NSString *serviceLocation = @"http://fewdalism.com:9040";
+    NSString *serviceLocation = @"http://cannon.fm:8500";
+    //NSString *serviceLocation = @"http://stickybur.com:9099";
+    //NSString *serviceLocation = @"http://adambergman.com/cannon.fm/api_v1";
+    
+    [[CNAPI instance] setServerAddress:serviceLocation];
+    
     switch(requestType)
     {
         case CNRequestTypeLocations:
-            serviceLocation = [serviceLocation stringByAppendingString:@"locations/"];
+            serviceLocation = [serviceLocation stringByAppendingString:@"/api/v1/locations/"];
             break;
         case CNRequestTypeFeedback:
-            serviceLocation = [serviceLocation stringByAppendingString:@"feedback/"];
-            [request addPostValue:[CNClient currentLocation] forKey:@"location"];
-            [request addPostValue:[CNClient currentLocation] forKey:@"genre"];
+            serviceLocation = [serviceLocation stringByAppendingString:@"/api/v1/feedback/"];
+            [request addPostValue:[[CNClient currentLocation] locationId] forKey:@"location"];
+            [request addPostValue:[[CNClient currentGenre] identifier] forKey:@"genre"];
             break;
         case CNRequestTypeSong:
-            serviceLocation = [serviceLocation stringByAppendingString:@"song/"];
-            [request addPostValue:[CNClient currentLocation] forKey:@"location"];
-            [request addPostValue:[CNClient currentLocation] forKey:@"genre"];
+            serviceLocation = [serviceLocation stringByAppendingString:@"/api/v1/song/"];
+            NSLog(@"submitting song request with location: %@ and genre: %@", [[CNClient currentLocation] locationId], [[CNClient currentGenre] identifier]);
+            [request addPostValue:[[CNClient currentLocation] locationId]forKey:@"location"];
+            [request addPostValue:[[CNClient currentGenre] identifier] forKey:@"genre"];
             break;
         case CNRequestTypeGenres:
-            serviceLocation = [serviceLocation stringByAppendingString:@"genres/"];
-            [request addPostValue:[CNClient currentLocation] forKey:@"location"];
+            serviceLocation = [serviceLocation stringByAppendingString:@"/api/v1/genres/"];
+            [request addPostValue:[[CNClient currentLocation] locationId] forKey:@"location"];
             break;
         default:
             serviceLocation = [serviceLocation stringByAppendingString:@"/"];
@@ -100,7 +97,8 @@
     
     [request addPostValue:[CNClient deviceIdentifier] forKey:@"client"];
  
-    NSURL *url = [NSURL URLWithString:serviceLocation];     
+    NSURL *url = [NSURL URLWithString:serviceLocation];
+    NSLog(@"The URL was %@", url);
     [request setURL:url];
     
     for(id key in postVariables)
@@ -110,11 +108,14 @@
 
     [request setCompletionBlock:^{
         //completion code
+        int limit = 15000;
+        NSLog(@"submitRequest Reponse for %@: \n%@", serviceLocation, [[request responseString] substringToIndex:[[request responseString] length] > limit + 1 ? limit : [[request responseString] length]]);
+        
         NSDictionary *response = [[request responseString] objectFromJSONString];  
         
         if(![response objectForKey:@"status"])
         {
-            failed(@"Service returned unknown response.", @"601");
+            failed(@"CNAPI Error: Service did not return a 'status' key.", @"9999");
             return;
         }
         
@@ -136,6 +137,8 @@
         failed([error description], [NSString stringWithFormat:@"%i", [error code]]);
         return;
     }];
+    
+    [request startAsynchronous];
     
 }
 

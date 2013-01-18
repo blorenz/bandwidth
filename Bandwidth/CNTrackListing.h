@@ -16,4 +16,7 @@
 @property (nonatomic, retain) CNArtist *artist;
 @property (nonatomic, retain) CNSong *song;
 
+
+-(id)initWithDictionary:(NSDictionary *)dictionary;
+
 @end

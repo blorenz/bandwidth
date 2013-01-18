@@ -8,16 +8,36 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 @class CNLocation;
 @class CNGenre;
+@class CNTrackListing;
 
-@interface CNClient : NSObject
+typedef void (^CNClientLocationUpdated)(CLLocation *location);
+
+@interface CNClient : NSObject <CLLocationManagerDelegate>
+
+
+// Public Properties
 
 +(NSString *)deviceIdentifier;
-+(CNLocation *)currentLocation;
++(CLLocation *)deviceLocation;
+
 +(CNGenre *)currentGenre;
 +(void)setCurrentGenre:(CNGenre *)genre;
+
++(CNLocation *)currentLocation;
 +(void)setCurrentLocation:(CNLocation *)location;
+
++(CNTrackListing *)currentTrack;
++(void)setCurrentTrack:(CNTrackListing *)track;
+
++(CNTrackListing *)previousTrack;
++(void)setPreviousTrack:(CNTrackListing *)track;
+
+// Methods
+
++(void)startLocationServices:(CNClientLocationUpdated)updatedBlock;
 
 @end
