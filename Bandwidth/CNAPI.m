@@ -3,6 +3,7 @@
 //  Bandwidth
 //
 //  Created by Bergman, Adam on 5/24/12.
+
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -64,7 +65,7 @@
     
     
     //NSString *serviceLocation = @"http://fewdalism.com:9040";
-    NSString *serviceLocation = @"http://cannon.fm:8500";
+    NSString *serviceLocation = @"http://cannon.fm";
     //NSString *serviceLocation = @"http://stickybur.com:9099";
     //NSString *serviceLocation = @"http://adambergman.com/cannon.fm/api_v1";
     

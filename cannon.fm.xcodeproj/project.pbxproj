@@ -33,9 +33,6 @@
 		1D1E7C38154CB96B00B5394C /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D1E7C37154CB96B00B5394C /* PlayerViewController.m */; };
 		1D1E7C3C154CBA1300B5394C /* PlayerViewControlleriPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D1E7C3A154CBA1300B5394C /* PlayerViewControlleriPhone.m */; };
 		1D1E7C3D154CBA1300B5394C /* PlayerViewControlleriPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D1E7C3B154CBA1300B5394C /* PlayerViewControlleriPhone.xib */; };
-		1D231728156F28B200EF06B5 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D231724156F28B200EF06B5 /* libTestFlight.a */; };
-		1D231729156F28B200EF06B5 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1D231725156F28B200EF06B5 /* README.txt */; };
-		1D23172A156F28B200EF06B5 /* release_notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1D231726156F28B200EF06B5 /* release_notes.txt */; };
 		1D231735156F2D4100EF06B5 /* CNArtist.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D231734156F2D4100EF06B5 /* CNArtist.m */; };
 		1D231738156F2D5000EF06B5 /* CNSong.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D231737156F2D5000EF06B5 /* CNSong.m */; };
 		1D23173B156F2D5900EF06B5 /* CNGenre.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D23173A156F2D5900EF06B5 /* CNGenre.m */; };
@@ -111,6 +108,13 @@
 		66B07D87157565E600C0BEB5 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B07D85157565E600C0BEB5 /* InfoViewController.m */; };
 		66B07D88157565E600C0BEB5 /* InfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66B07D86157565E600C0BEB5 /* InfoViewController.xib */; };
 		66B1DC8415818A9900AEE803 /* CNJukebox.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B1DC8315818A9900AEE803 /* CNJukebox.m */; };
+		CA72724616B227FB004851FB /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CA72724216B227FB004851FB /* Default.png */; };
+		CA72724716B227FB004851FB /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA72724316B227FB004851FB /* Default@2x.png */; };
+		CA72724816B227FB004851FB /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CA72724416B227FB004851FB /* icon.png */; };
+		CA72724916B227FB004851FB /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA72724516B227FB004851FB /* icon@2x.png */; };
+		CA72724B16B22942004851FB /* icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = CA72724A16B22942004851FB /* icon-72.png */; };
+		CAFCA34A16A907EB00C508CE /* icon@2x-dev.png in Resources */ = {isa = PBXBuildFile; fileRef = CAFCA34916A907EA00C508CE /* icon@2x-dev.png */; };
+		CAFCA34C16A907FC00C508CE /* icon-dev.png in Resources */ = {isa = PBXBuildFile; fileRef = CAFCA34B16A907FB00C508CE /* icon-dev.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -192,10 +196,6 @@
 		1D1E7C39154CBA1300B5394C /* PlayerViewControlleriPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerViewControlleriPhone.h; sourceTree = "<group>"; };
 		1D1E7C3A154CBA1300B5394C /* PlayerViewControlleriPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerViewControlleriPhone.m; sourceTree = "<group>"; };
 		1D1E7C3B154CBA1300B5394C /* PlayerViewControlleriPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerViewControlleriPhone.xib; sourceTree = "<group>"; };
-		1D231724156F28B200EF06B5 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
-		1D231725156F28B200EF06B5 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
-		1D231726156F28B200EF06B5 /* release_notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.txt; sourceTree = "<group>"; };
-		1D231727156F28B200EF06B5 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		1D231733156F2D4100EF06B5 /* CNArtist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CNArtist.h; sourceTree = "<group>"; };
 		1D231734156F2D4100EF06B5 /* CNArtist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CNArtist.m; sourceTree = "<group>"; };
 		1D231736156F2D5000EF06B5 /* CNSong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CNSong.h; sourceTree = "<group>"; };
@@ -287,6 +287,13 @@
 		66B07D86157565E600C0BEB5 /* InfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoViewController.xib; sourceTree = "<group>"; };
 		66B1DC8215818A9900AEE803 /* CNJukebox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CNJukebox.h; sourceTree = "<group>"; };
 		66B1DC8315818A9900AEE803 /* CNJukebox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CNJukebox.m; sourceTree = "<group>"; };
+		CA72724216B227FB004851FB /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		CA72724316B227FB004851FB /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		CA72724416B227FB004851FB /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		CA72724516B227FB004851FB /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
+		CA72724A16B22942004851FB /* icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-72.png"; sourceTree = "<group>"; };
+		CAFCA34916A907EA00C508CE /* icon@2x-dev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x-dev.png"; sourceTree = "<group>"; };
+		CAFCA34B16A907FB00C508CE /* icon-dev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-dev.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -306,7 +313,6 @@
 				1D1E7BC5154C1A9600B5394C /* UIKit.framework in Frameworks */,
 				1D1E7BC7154C1A9600B5394C /* Foundation.framework in Frameworks */,
 				1D1E7BC9154C1A9600B5394C /* CoreGraphics.framework in Frameworks */,
-				1D231728156F28B200EF06B5 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,6 +322,13 @@
 		1D1E7BB5154C1A9500B5394C = {
 			isa = PBXGroup;
 			children = (
+				CA72724A16B22942004851FB /* icon-72.png */,
+				CA72724216B227FB004851FB /* Default.png */,
+				CA72724316B227FB004851FB /* Default@2x.png */,
+				CA72724416B227FB004851FB /* icon.png */,
+				CA72724516B227FB004851FB /* icon@2x.png */,
+				CAFCA34B16A907FB00C508CE /* icon-dev.png */,
+				CAFCA34916A907EA00C508CE /* icon@2x-dev.png */,
 				1D1E7BCA154C1A9600B5394C /* cannon.fm Source */,
 				1D1E7BC3154C1A9600B5394C /* Frameworks */,
 				1D1E7BC1154C1A9600B5394C /* Products */,
@@ -381,7 +394,6 @@
 			isa = PBXGroup;
 			children = (
 				1D23174C156F383300EF06B5 /* UniqueIdentifier */,
-				1D231723156F28B200EF06B5 /* TestFlightSDK */,
 				1D1E7BDC154C1B4B00B5394C /* asi-http-request */,
 				1D1E7BDD154C1BDD00B5394C /* AudioStreamer */,
 				1D1E7BDE154C1BE500B5394C /* JSONKit */,
@@ -503,18 +515,6 @@
 			);
 			name = S3;
 			path = "lib/asi-http-request/S3";
-			sourceTree = "<group>";
-		};
-		1D231723156F28B200EF06B5 /* TestFlightSDK */ = {
-			isa = PBXGroup;
-			children = (
-				1D231724156F28B200EF06B5 /* libTestFlight.a */,
-				1D231725156F28B200EF06B5 /* README.txt */,
-				1D231726156F28B200EF06B5 /* release_notes.txt */,
-				1D231727156F28B200EF06B5 /* TestFlight.h */,
-			);
-			name = TestFlightSDK;
-			path = lib/TestFlightSDK;
 			sourceTree = "<group>";
 		};
 		1D231732156F2D0D00EF06B5 /* API */ = {
@@ -702,8 +702,6 @@
 				1D1E7BCF154C1A9600B5394C /* InfoPlist.strings in Resources */,
 				1D1E7C3D154CBA1300B5394C /* PlayerViewControlleriPhone.xib in Resources */,
 				1DB8CCAF154D8B7600534484 /* SVProgressHUD.bundle in Resources */,
-				1D231729156F28B200EF06B5 /* README.txt in Resources */,
-				1D23172A156F28B200EF06B5 /* release_notes.txt in Resources */,
 				661006251574880300CADD10 /* albumBlack.png in Resources */,
 				661006261574880300CADD10 /* albumWhite.png in Resources */,
 				661006271574880300CADD10 /* buttonCarrot.png in Resources */,
@@ -759,6 +757,13 @@
 				6630666A158198E1004F8617 /* background_abstract@2x.png in Resources */,
 				6630669215852955004F8617 /* icon_flip.png in Resources */,
 				6630669315852955004F8617 /* icon_flip@2x.png in Resources */,
+				CAFCA34A16A907EB00C508CE /* icon@2x-dev.png in Resources */,
+				CAFCA34C16A907FC00C508CE /* icon-dev.png in Resources */,
+				CA72724616B227FB004851FB /* Default.png in Resources */,
+				CA72724716B227FB004851FB /* Default@2x.png in Resources */,
+				CA72724816B227FB004851FB /* icon.png in Resources */,
+				CA72724916B227FB004851FB /* icon@2x.png in Resources */,
+				CA72724B16B22942004851FB /* icon-72.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -849,7 +854,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -858,6 +864,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -873,13 +881,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Bandwidth/cannon.fm-Prefix.pch";
 				INFOPLIST_FILE = "Bandwidth/cannon.fm-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Bandwidth/lib/TestFlightSDK\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -887,20 +893,18 @@
 		1D1E7BDA154C1A9600B5394C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_POSTPROCESSING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Bandwidth/cannon.fm-Prefix.pch";
 				INFOPLIST_FILE = "Bandwidth/cannon.fm-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Bandwidth/lib/TestFlightSDK\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -80,7 +80,7 @@
         {
             if([[[track song] name] isEqualToString:[[[CNClient currentTrack] song] name]])
             {
-                NSLog(@"Same Track retrying.");
+                NSLog(@"Same Track retrying to get new song.");
                 [self nextTrackListing];
                 return;
             }
@@ -277,17 +277,17 @@
 	if ([[self streamer] isWaiting])
 	{
 		//[self setButtonImage:[UIImage imageNamed:@"loadingbutton.png"]];
-        NSLog(@"CNJukebox State Changed: CNJukeboxStatusWaiting");
+        NSLog(@"CNJukebox %@ State Changed: CNJukeboxStatusWaiting", [self streamer]);
         self.status = CNJukeboxStatusWaiting;
 	}
 	else if ([[self streamer] isPlaying])
 	{
-        NSLog(@"CNJukebox State Changed: CNJukeboxStatusPlaying");
+        NSLog(@"CNJukebox %@ State Changed: CNJukeboxStatusPlaying", [self streamer]);
         self.status = CNJukeboxStatusPlaying;
 	}
 	else if ([[self streamer] isIdle])
 	{
-        NSLog(@"CNJukebox State Changed: CNJukeboxStatusIdle");
+        NSLog(@"CNJukebox %@ State Changed: CNJukeboxStatusIdle", [self streamer]);
         self.status = CNJukeboxStatusIdle;
         
         if([self streamer].duration > 0)
@@ -321,6 +321,7 @@
 //
 - (void)updateProgress:(NSTimer *)updatedTimer
 {
+    
 	if ([self streamer].bitRate != 0.0)
 	{
 		double progress = [self streamer].progress;

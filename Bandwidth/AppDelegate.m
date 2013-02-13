@@ -21,11 +21,11 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
-    [TestFlight takeOff:@"78720f6fba01ee7846a480c4ff016790_OTE5MjYyMDEyLTA1LTI0IDIxOjM1OjA1LjY4NzEzNA"];
+/*    [TestFlight takeOff:@"78720f6fba01ee7846a480c4ff016790_OTE5MjYyMDEyLTA1LTI0IDIxOjM1OjA1LjY4NzEzNA"];
     
 #ifdef TESTING
     [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
-#endif
+#endif */
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];

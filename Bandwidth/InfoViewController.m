@@ -27,7 +27,9 @@
     if([tabs selectedSegmentIndex] == 0)
     {
         
-        NSURL *artistURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/artist/%@/?%@", [[CNAPI instance] serverAddress], [[[CNClient currentTrack] artist] identifier], [[[CNClient currentTrack] song] identifier]]];
+        
+        NSURL *artistURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/artist/%@/?song=%@", [[CNAPI instance] serverAddress], [[[CNClient currentTrack] artist] identifier], [[[CNClient currentTrack] song] identifier]]];
+        //NSLog(@"The URL is %@", artistURL);
         [web loadRequest:[NSURLRequest requestWithURL:artistURL]];
          
        /* 
@@ -59,7 +61,7 @@
     if([tabs selectedSegmentIndex] == 2)
     {
         
-        NSURL *gigsURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/gigs/%@/?%@", [[CNAPI instance] serverAddress], [[[CNClient currentTrack] artist] identifier], [[[CNClient currentTrack] song] identifier]]];
+        NSURL *gigsURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/gigs/%@/?song=%@", [[CNAPI instance] serverAddress], [[[CNClient currentTrack] artist] identifier], [[[CNClient currentTrack] song] identifier]]];
         [web loadRequest:[NSURLRequest requestWithURL:gigsURL]];
         
         

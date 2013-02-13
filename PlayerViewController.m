@@ -179,10 +179,10 @@
     
 
     [CNAPI submitRequest:CNRequestTypeFeedback withData:dict onSuccess:^(NSDictionary *response) {
-       // <#code#>
+       // Success
         
     } onFailure:^(NSString *message, NSString *code) {
-      //  <#code#>
+      //  Failure
         
     }];
     
@@ -194,10 +194,11 @@
                            @"-1", @"thumbs", nil];
     
       [CNAPI submitRequest:CNRequestTypeFeedback withData:dict onSuccess:^(NSDictionary *response) {
+        // Success
         [[CNJukebox instance] nextTrackListing];
         
     } onFailure:^(NSString *message, NSString *code) {
-        //  <#code#>
+        //  Failure
         
     }];
     
