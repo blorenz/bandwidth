@@ -107,6 +107,8 @@
     }
     
     [[self.navigationController navigationBar] setBarStyle:UIBarStyleBlackOpaque];
+    self.navigationController.navigationBar.hidden = NO;
+
    
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 180, 30)];
 	[titleLabel setFont:[UIFont boldSystemFontOfSize:16.0f]];

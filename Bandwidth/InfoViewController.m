@@ -29,7 +29,7 @@
         
         
         NSURL *artistURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/artist/%@/?song=%@", [[CNAPI instance] serverAddress], [[[CNClient currentTrack] artist] identifier], [[[CNClient currentTrack] song] identifier]]];
-        //NSLog(@"The URL is %@", artistURL);
+        NSLog(@"The URL is %@", artistURL);
         [web loadRequest:[NSURLRequest requestWithURL:artistURL]];
          
        /* 
@@ -130,7 +130,8 @@
     [albumLabel setText:[[[CNClient currentTrack] song] albumName]];
     
     
-    NSURL *artistURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/artist/%@", [[CNAPI instance] serverAddress], [[[CNClient currentTrack] artist] identifier]]];
+    NSURL *artistURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/artist/%@/?song=%@", [[CNAPI instance] serverAddress], [[[CNClient currentTrack] artist] identifier], [[[CNClient currentTrack] song] identifier]]];
+    
     [web loadRequest:[NSURLRequest requestWithURL:artistURL]];
     
     [tabs setSelectedSegmentIndex:0];

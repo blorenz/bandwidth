@@ -277,30 +277,30 @@
 	if ([[self streamer] isWaiting])
 	{
 		//[self setButtonImage:[UIImage imageNamed:@"loadingbutton.png"]];
-        NSLog(@"CNJukebox %@ State Changed: CNJukeboxStatusWaiting", [self streamer]);
+//        NSLog(@"CNJukebox %@ State Changed: CNJukeboxStatusWaiting", [self streamer]);
         self.status = CNJukeboxStatusWaiting;
 	}
 	else if ([[self streamer] isPlaying])
 	{
-        NSLog(@"CNJukebox %@ State Changed: CNJukeboxStatusPlaying", [self streamer]);
+//        NSLog(@"CNJukebox %@ State Changed: CNJukeboxStatusPlaying", [self streamer]);
         self.status = CNJukeboxStatusPlaying;
 	}
 	else if ([[self streamer] isIdle])
 	{
-        NSLog(@"CNJukebox %@ State Changed: CNJukeboxStatusIdle", [self streamer]);
+//        NSLog(@"CNJukebox %@ State Changed: CNJukeboxStatusIdle", [self streamer]);
         self.status = CNJukeboxStatusIdle;
         
         if([self streamer].duration > 0)
         {
             if(!isSearchingForTrack)
             {
-                NSLog(@"MOVING TO NEXT TRACK...");
+//                NSLog(@"MOVING TO NEXT TRACK...");
                 [self nextTrackListing];
             }
         }
 	}else if([[self streamer] isPaused])
     {
-        NSLog(@"CNJukebox State Changed: CNJukeboxStatusPaused");
+//        NSLog(@"CNJukebox State Changed: CNJukeboxStatusPaused");
         self.status = CNJukeboxStatusPaused;
     }
     

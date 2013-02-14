@@ -77,6 +77,7 @@
     if(!introLocationViewController)
     {
         introLocationViewController = [[IntroLocationViewController alloc] initWithNibName:@"IntroLocationViewController" bundle:nil];
+        introLocationViewController.view.autoresizingMask = UIViewAutoresizingNone;
     }
     
     if(introLocationViewController.navigationController)

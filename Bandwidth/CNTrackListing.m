@@ -12,7 +12,7 @@
 
 @implementation CNTrackListing
 
-@synthesize artist, song;
+@synthesize artist, song, thumbsedUp;
 
 -(id)initWithDictionary:(NSDictionary *)dictionary
 {
@@ -20,7 +20,8 @@
     if(self)
     {
         self.artist = [[CNArtist alloc] initWithDictionary:dictionary];
-        self.song = [[CNSong alloc] initWithDictionary:dictionary];       
+        self.song = [[CNSong alloc] initWithDictionary:dictionary];
+        self.thumbsedUp = NO;
     }
     return self;   
 }

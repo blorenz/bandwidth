@@ -172,7 +172,11 @@
 }
 
 -(IBAction)buttonThumbsUpTouched:(id)sender 
-{ 
+{
+    if ([[CNClient currentTrack] thumbsedUp])
+        return;
+    
+    NSLog(@"Thumbs up!");
     [SVProgressHUD showSuccessWithStatus:@"Rock On"];
     NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
                            @"1", @"thumbs", nil];
@@ -180,6 +184,10 @@
 
     [CNAPI submitRequest:CNRequestTypeFeedback withData:dict onSuccess:^(NSDictionary *response) {
        // Success
+        CNTrackListing *currentTrack = [CNClient currentTrack];
+        
+        currentTrack.thumbsedUp = YES;
+        
         
     } onFailure:^(NSString *message, NSString *code) {
       //  Failure

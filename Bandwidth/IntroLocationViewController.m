@@ -136,6 +136,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [[self.navigationController navigationBar] setBarStyle:UIBarStyleBlackOpaque];
+    self.navigationController.navigationBar.hidden = NO;
+     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 240, 30)];
 	[titleLabel setFont:[UIFont boldSystemFontOfSize:16.0f]];
@@ -165,9 +167,15 @@
 
 - (void)viewDidLoad
 {
+    [[self.navigationController navigationBar] setBarStyle:UIBarStyleBlackOpaque];
+    self.navigationController.navigationBar.hidden = YES;
+   
     [super viewDidLoad];
     
+    
+    
     [self.navigationItem setBackBarButtonItem:nil];
+    
     
     
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Scenes"
