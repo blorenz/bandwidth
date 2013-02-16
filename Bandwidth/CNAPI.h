@@ -23,7 +23,8 @@ typedef enum {
     CNRequestTypeLocations,
     CNRequestTypeGenres,
     CNRequestTypeSong,
-    CNRequestTypeFeedback
+    CNRequestTypeFeedback,
+    CNRequestTypePlayed
 } CNRequestType;
 
 NSDictionary *endpoints;

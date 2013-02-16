@@ -22,6 +22,7 @@
         self.artist = [[CNArtist alloc] initWithDictionary:dictionary];
         self.song = [[CNSong alloc] initWithDictionary:dictionary];
         self.thumbsedUp = NO;
+        self.submittedPlayed = NO;
     }
     return self;   
 }

@@ -282,7 +282,22 @@
 	}
 	else if ([[self streamer] isPlaying])
 	{
-//        NSLog(@"CNJukebox %@ State Changed: CNJukeboxStatusPlaying", [self streamer]);
+      
+
+        //NSLog(@"CNJukebox %@ State Changed: CNJukeboxStatusPlaying", [self streamer]);
+        if (![[CNClient currentTrack] submittedPlayed] ) {
+              [CNClient currentTrack].submittedPlayed = YES;
+        
+            [CNAPI submitRequest:CNRequestTypePlayed withData:nil onSuccess:^(NSDictionary *response) {
+                // Success
+                            
+            } onFailure:^(NSString *message, NSString *code) {
+                //  Failure
+                
+            }];
+
+            
+        }
         self.status = CNJukeboxStatusPlaying;
 	}
 	else if ([[self streamer] isIdle])

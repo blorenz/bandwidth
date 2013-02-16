@@ -66,8 +66,7 @@
     
     //NSString *serviceLocation = @"http://fewdalism.com:9040";
     NSString *serviceLocation = @"http://cannon.fm";
-    //NSString *serviceLocation = @"http://stickybur.com:9099";
-    //NSString *serviceLocation = @"http://adambergman.com/cannon.fm/api_v1";
+    
     
     [[CNAPI instance] setServerAddress:serviceLocation];
     
@@ -77,7 +76,7 @@
             serviceLocation = [serviceLocation stringByAppendingString:@"/api/v1/locations/"];
             break;
         case CNRequestTypeFeedback:
-            serviceLocation = [serviceLocation stringByAppendingString:@"/api/v1/feedback/"];
+            serviceLocation = [serviceLocation stringByAppendingString:@"/api/v1.1/feedback/"];
             [request addPostValue:[[CNClient currentLocation] locationId] forKey:@"location"];
             [request addPostValue:[[CNClient currentGenre] identifier] forKey:@"genre"];
             [request addPostValue:[[[CNClient currentTrack] song] identifier ] forKey:@"song-id"];
@@ -92,6 +91,12 @@
             serviceLocation = [serviceLocation stringByAppendingString:@"/api/v1/genres/"];
             [request addPostValue:[[CNClient currentLocation] locationId] forKey:@"location"];
             break;
+        case CNRequestTypePlayed:
+            serviceLocation = [serviceLocation stringByAppendingString:@"/api/v1.1/played/"];
+            [request addPostValue:[[CNClient currentLocation] locationId] forKey:@"location"];
+            [request addPostValue:[[CNClient currentGenre] identifier] forKey:@"genre"];
+            [request addPostValue:[[[CNClient currentTrack] song] identifier ] forKey:@"song-id"];
+            break;
         default:
             serviceLocation = [serviceLocation stringByAppendingString:@"/"];
             break;
@@ -100,7 +105,7 @@
     [request addPostValue:[CNClient deviceIdentifier] forKey:@"client"];
  
     NSURL *url = [NSURL URLWithString:serviceLocation];
-    NSLog(@"The URL was %@", url);
+    //NSLog(@"The URL was %@", url);
     [request setURL:url];
     
     for(id key in postVariables)
