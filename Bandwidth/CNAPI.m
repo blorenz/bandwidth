@@ -65,7 +65,9 @@
     
     
     //NSString *serviceLocation = @"http://fewdalism.com:9040";
-    NSString *serviceLocation = @"http://cannon.fm";
+   // NSString *serviceLocation = @"http://cannon.fm";
+    NSString *serviceLocation = @"http://192.81.216.150";
+
     
     
     [[CNAPI instance] setServerAddress:serviceLocation];

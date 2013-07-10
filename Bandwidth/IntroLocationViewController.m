@@ -75,6 +75,8 @@
              
              float longitude=coordinate.longitude;
              float latitude=coordinate.latitude;
+ 
+             
              
              // /*DEBUG*/ NSLog(@"IntroLocationViewController: dLongitude : %f",longitude);
              // /*DEBUG*/ NSLog(@"IntroLocationViewController: dLatitude : %f", latitude); 
